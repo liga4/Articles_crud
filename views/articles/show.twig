@@ -1,0 +1,41 @@
+{% include 'Partials/head.twig' %}
+
+<div class="min-h-full">
+    {% include 'Partials/navbar.twig' %}
+
+    <header class="bg-white shadow">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">{{ article.title }}</h1>
+        </div>
+    </header>
+
+    <main class="bg-white py-6">
+        <div class="w-full md:w-1/2 lg:w-1/4 p-4">
+            <div class="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <tbody class="bg-white divide-y divide-gray-200">
+                    <tr>
+                        <td><img src="{{ article.picture }}" alt="{{ article.title }}" width="300" height="300"></td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            {{ article.title }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="px-6 py-4 whitespace-nowrap">
+                            <small class="text-gray-500">{{ article.createdAt.format('Y-m-d H:i:s') }}</small>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <form action="/articles/{{ article.id }}/delete" method="POST">
+                    <input type="hidden" name="id" value="{{ article.id }}">
+                    <button>Delete</button>
+                </form>
+                <a href="/articles/{{ article.id }}/edit">Edit</a>
+            </div>
+        </div>
+    </main>
+</div>
+{% include 'Partials/footer.twig' %}

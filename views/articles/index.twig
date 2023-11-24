@@ -1,0 +1,45 @@
+{% include 'Partials/head.twig' %}
+
+<div class="min-h-full">
+    {% include 'Partials/navbar.twig' %}
+
+    <header class="bg-white shadow">
+        <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold tracking-tight text-gray-900">Articles</h1>
+        </div>
+    </header>
+
+    <main class="bg-white py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-4 sm:grid-cols-2 md:grid-cols-4">
+            {% for article in articles.all %}
+                <div class="p-4 bg-gray-100">
+                    <div class="border border-gray-300 rounded-lg overflow-hidden">
+                        <table class="min-w-full bg-gray-100">
+                            <tbody class="bg-white">
+                            <tr>
+                                <td class="p-4">
+                                    <img src="{{ article.picture }}" alt="{{ article.title }}" width="300" height="300">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2">
+                                    <a href="/articles/{{ article.id }}"
+                                       class="text-indigo-600 hover:underline">{{ article.title }}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="px-4 py-2">
+                                    <a href="/article/{{ article.id }}">
+                                    <small class="text-gray-500">{{ article.createdAt.format('Y-m-d H:i:s') }}</small>
+                                    </a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+</div>
+{% include 'Partials/footer.twig' %}
