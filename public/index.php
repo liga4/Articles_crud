@@ -13,6 +13,7 @@ $loader = new FilesystemLoader('../views');
 $twig = new Environment($loader);
 
 $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $router) {
+    $router->addRoute('GET', '/', [ArticleController::class, 'index']);
     $router->addRoute('GET', '/articles', [ArticleController::class, 'index']);
     $router->addRoute('GET', '/articles/create', [ArticleController::class, 'create']);
     $router->addRoute('POST', '/articles', [ArticleController::class, 'store']);
@@ -24,11 +25,10 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $rout
 
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
-
-if (false !== $pos = strpos($uri, '?')) {
-    $uri = substr($uri, 0, $pos);
-}
 $uri = rawurldecode($uri);
+$container = require_once __DIR__ . '/../app/config.php';
+$articleRepository = $container->get('ArticleRepository');
+
 
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
 switch ($routeInfo[0]) {
@@ -55,7 +55,6 @@ switch ($routeInfo[0]) {
             default:
                 break;
         }
-        unset($_SESSION['flush']);
         break;
 }
 

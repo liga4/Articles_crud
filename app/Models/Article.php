@@ -11,22 +11,22 @@ class Article
     private string $description;
     private string $picture;
     private Carbon $createdAt;
-    private ?int $id;
+    private ?string $id;
     private ?Carbon $updateAt;
 
     public function __construct(
         string  $title,
         string  $description,
         string  $picture,
-        string  $createdAt,
-        ?int $id = null,
+        ?string  $createdAt = null,
+        ?string $id = null,
         ?string $updateAt = null
     )
     {
         $this->title = $title;
         $this->description = $description;
         $this->picture = $picture;
-        $this->createdAt = new Carbon($createdAt);
+        $this->createdAt = $createdAt == null ? Carbon::now() : new Carbon($createdAt);
         $this->id = $id;
         $this->updateAt = $updateAt ? new Carbon($updateAt) : null;
     }
@@ -50,7 +50,7 @@ class Article
     {
         return $this->createdAt;
     }
-    public function getId(): ?int
+    public function getId(): ?string
     {
         return $this->id;
     }
@@ -58,4 +58,11 @@ class Article
     {
         return $this->updateAt;
     }
+    public function update(array $data):void
+    {
+        $this->title = $data['title'] ?? $this->title;
+        $this->description = $data['description'] ?? $this->description;
+        $this->updateAt = Carbon::now();
+    }
+
 }

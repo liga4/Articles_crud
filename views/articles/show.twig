@@ -31,7 +31,7 @@
                 </table>
                 <form action="/articles/{{ article.id }}/delete" method="POST">
                     <input type="hidden" name="id" value="{{ article.id }}">
-                    <button>Delete</button>
+                    <button onclick="return confirm('Are you sure?')">Delete</button>
                 </form>
                 <a href="/articles/{{ article.id }}/edit">Edit</a>
             </div>
