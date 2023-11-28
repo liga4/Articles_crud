@@ -7,17 +7,19 @@ use App\Collections\ArticleCollection;
 use App\Models\Article;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
-
+use Dotenv;
 class ArticleRepository
 {
     protected Connection $database;
 
     public function __construct()
     {
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../../');
+        $dotenv->load();
         $connectionParams = [
             'dbname' => 'articles',
             'user' => 'root',
-            'password' => 'liga',
+            'password' => $_ENV['mysql_password'],
             'host' => 'localhost',
             'driver' => 'pdo_mysql',
         ];
