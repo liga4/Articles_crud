@@ -26,8 +26,7 @@ $dispatcher = FastRoute\simpleDispatcher(function(FastRoute\RouteCollector $rout
 $httpMethod = $_SERVER['REQUEST_METHOD'];
 $uri = $_SERVER['REQUEST_URI'];
 $uri = rawurldecode($uri);
-$container = require_once __DIR__ . '/../app/config.php';
-$articleRepository = $container->get('ArticleRepository');
+
 
 
 $routeInfo = $dispatcher->dispatch($httpMethod, $uri);
